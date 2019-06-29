@@ -1,13 +1,19 @@
 
+/************************************************************************/
+// File Name: LatticeFunctions.c
+// Description: Implementation of functions for a 1D lattice:
+//	distance, normalization and parity.
+// Author: Max Contreras - mecontrl@uc.cl
+// Date: July 2016 @ Complex Systems PUC Rio - Brazil
+/************************************************************************/
+
 #include "LatticeFunctions.h"
 
-// Collection of functions for a 1D Lattice
-
 /************************************************************************/
-/* Function: LF_CircularDistance										*/
-/* Input: Number of nodes, initial node and final node					*/
-/* Return: integer k = min[ abs(ini-fin + kN) ]							*/
-/* Description: Minimize the distance between 2 points in a circle		*/
+// Function: LF_CircularDistance
+// Input: Number of nodes, initial node and final node
+// Return: integer k = min[ abs(ini-fin + kN) ]
+// Description: Minimize the distance between 2 points in a circle
 /************************************************************************/
 
 int LF_CircularDistance(int total_number_of_nodes,int initial_node,int final_node)
@@ -53,10 +59,10 @@ int LF_CircularDistance(int total_number_of_nodes,int initial_node,int final_nod
 
 
 /************************************************************************/
-/* Function: LF_NormalizationFactor					*/
-/* Input: Number of nodes, range of interactions parameter			*/
-/* Return: A double with the value of the normalization factor   				*/
-/* Description: Calculates the sum of the distance to the power alpha  */
+// Function: LF_NormalizationFactor
+// Input: Number of nodes, range of interactions parameter
+// Return: A double with the value of the normalization factor
+// Description: Calculates the sum of the distance to the power alpha
 /************************************************************************/
 
 
@@ -97,10 +103,10 @@ double LF_NormalizationFactor(int total_number_of_nodes,double alpha)
 }
 
 /************************************************************************/
-/* Function: LF_IsEven 													*/
-/* Input: Number of nodes												*/
-/* Return: 1 if the number is even, 0 if not						*/
-/* Description: Procedure that determines the parity of a number		*/
+// Function: LF_IsEven
+// Input: Number of nodes
+// Return: 1 if the number is even, 0 if not
+// Description: Procedure that determines the parity of a number
 /************************************************************************/
 
 int LF_IsEven(int total_number_of_nodes)
