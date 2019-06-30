@@ -6,6 +6,7 @@
 // Author: Max Contreras - mecontrl@uc.cl
 // Taken from: "A Review of Pseudo-random Number Generators" F. James
 //      See description below.
+//      doi: 10.1016/0010-4655(90)90032-V
 // Date: July 2016 @ Complex Systems PUC Rio - Brazil
 /************************************************************************/
 
