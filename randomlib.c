@@ -1,11 +1,31 @@
+
+
+/************************************************************************/
+// File Name: randomlib.c
+// Description: Functions for generating pseudo random numbers
+// Author: Max Contreras - mecontrl@uc.cl
+// Taken from: "A Review of Pseudo-random Number Generators" F. James
+//      See description below.
+// Date: July 2016 @ Complex Systems PUC Rio - Brazil
+/************************************************************************/
+
 #define FALSE 0
 #define TRUE 1
+
+/************************************************************************/
+// Standard libraries
+/************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
+/************************************************************************/
+// Non standard libraries
+/************************************************************************/
+
 #include "randomlib.h"
+
 /*
    This Random Number Generator is based on the algorithm in a FORTRAN
    version published by George Marsaglia and Arif Zaman, Florida State
@@ -104,7 +124,7 @@ void RandomInitialise(int ij,int kl)
    test = TRUE;
 }
 
-/* 
+/*
    This is the random number generator proposed by George Marsaglia in
    Florida State University Report: FSU-SCRI-87-50
 */
@@ -113,7 +133,7 @@ double RandomUniform(void)
    double uni;
 
    /* Make sure the initialisation routine has been called */
-   if (!test) 
+   if (!test)
    	RandomInitialise(1802,9373);
 
    uni = u[i97-1] - u[j97-1];
@@ -151,8 +171,8 @@ double RandomGaussian(double mean,double stddev)
 {
    double  q,u,v,x,y;
 
-	/*  
-		Generate P = (u,v) uniform in rect. enclosing acceptance region 
+	/*
+		Generate P = (u,v) uniform in rect. enclosing acceptance region
       Make sure that any random numbers <= 0 are rejected, since
       gaussian() requires uniforms > 0, but RandomUniform() delivers >= 0.
 	*/

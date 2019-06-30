@@ -23,7 +23,7 @@
 /************************************************************************/
 // Function: VO_Initialize
 // Input: vector, Number of nodes, decimal precision
-// Return: nothing
+// Return: integer
 // Description: Initializes a vector of the input size with random
 //		in each component with the input precision
 /************************************************************************/
@@ -49,7 +49,7 @@ int VO_Initialize(double *vector, int total_number_of_nodes)
 /************************************************************************/
 // Function: VO_Clean
 // Input: vector, Number of nodes
-// Return: nothing
+// Return: integer
 // Description: Put a zero in each component of the N-dim vector
 /************************************************************************/
 
