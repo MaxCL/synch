@@ -1,16 +1,23 @@
+
 /************************************************************************/
-/* Program: 	Create Initial Conditions 								*/
-/* Input: No input required												*/
-/* Output: Create a set of files with random initial conditions			*/
-/*			for each value of epsilon, with fixed alpha					*/
-/* Description: Uses the randomlib library to create random values 		*/
-/*				in [0,1] for each node. 								*/
+// File Name: cic.c
+// Description: Program that generates the initial conditions
+// Author: Max Contreras - mecontrl@uc.cl
+// Date: July 2016 @ Complex Systems PUC Rio - Brazil
+/************************************************************************/
+
+/************************************************************************/
+// Non standard libraries
 /************************************************************************/
 
 #include "VectorOperators.h"
 #include "randomlib.h"
 
 #include "Parameters.h"
+
+/************************************************************************/
+// Main Function
+/************************************************************************/
 
 int main(void)
 {
@@ -26,6 +33,7 @@ int main(void)
 	{
 		epsilon = (double)n/FACTOR;
 
+		// This name is consistent with the simulation
 		sprintf(conditions_name, "ic_e_%.2lf.csv", epsilon);
 
 //This create the files with random values
