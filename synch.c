@@ -2,6 +2,8 @@
 /************************************************************************/
 // File Name: synch.c
 // Description: Main function for SPD and SAD cases
+//		Runs one simulation for a specific value of the parameters
+//		alpha, epsilon and gamma.
 // Author: Max Contreras - mecontrl@uc.cl
 // Date: July 2016 @ Complex Systems PUC Rio - Brazil
 /************************************************************************/
@@ -22,42 +24,52 @@
 #include "Parameters.h"
 
 /************************************************************************/
+// Variables definition
+/************************************************************************/
 
 int main(int argc, char *argv[])
 {
+	// Variable to control errors from functions
 	int k;
+	// Variable to go over each element of the network
 	int node;
+	// Variable to control the iterations
 	int time_iteration;
 
-	double original_previous[NODES];
-	double original_current[NODES];
+	// Previous state of the system (t-1) and current state of the system (t)
+	double original_previous[NODES], original_current[NODES];
 
-	double shadow_previous[NODES];
-	double shadow_current[NODES];
+	// Shadow orbits of the system for (t-1), (t) and normalized.
+	double shadow_previous[NODES], shadow_current[NODES], normalized_shadow[NODES];
 
-	double normalized_shadow[NODES];
+	// Global metrics over the lattice
+	double average_original, deviation_original;
 
-	double average_original;
-	double deviation_original;
+	// Distances
+	double initial_distance, current_distance;
 
-	double initial_distance;
-	double current_distance;
+	// Global metrics for shadow orbits
+	double average_shadow, deviation_shadow;
 
-	double average_shadow;
-	double deviation_shadow;
-
+	// Model parameters for the non delayed case
 	double alpha, epsilon, gamma;
 
+	// Four files to be used to store data from simulation
 	char file_name[40];
-	char conditions_name[40];
 	char delta_file[40];
 	char adjusted_file[40];
 	char distance_file[40];
 
-	FILE *file_01;
-//	FILE *file_01, *file_02, *file_03, *file_04;
+	// Name for the initial conditions file
+	char conditions_name[40];
 
-/*************************************************************************************************************************************************************************/
+	// Declaration of 2 data files
+	// One for the original orbit and one for the shadow orbit
+	FILE *file_01, *file_02;
+
+/************************************************************************/
+// Data files initialization
+/************************************************************************/
 
 	if( argc != 4 )
 	{
@@ -65,26 +77,26 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	// Get the model parameters
 	sscanf(argv[1],"%lf",&alpha);
 	sscanf(argv[2],"%lf",&epsilon);
 	sscanf(argv[3],"%lf",&gamma);
 
+	// Epsilon define the initial conditions. For each value there is a different set.
 	sprintf(conditions_name, "ic_e_%.2lf.csv", epsilon);
 
+	// Data for the original orbit
 	sprintf(file_name, "sim_file_a_%.2lf_e_%.2lf_g_%.2lf.csv", alpha,epsilon,gamma);
-//	sprintf(delta_file, "sim_delta_a_%.3lf_e_%.3lf_g_%.3lf.csv", alpha,epsilon,gamma);
-//	sprintf(adjusted_file, "sim_adjt_a_%.3lf_e_%.3lf_g_%.3lf.csv", alpha,epsilon,gamma);
-//	sprintf(distance_file,"sim_dist_a_%.2lf_e_%.2lf_g_%.3lf.csv", alpha,epsilon,gamma);
+	sprintf(delta_file, "sim_delta_a_%.3lf_e_%.3lf_g_%.3lf.csv", alpha,epsilon,gamma);
 
-/*************************************************************************************************************************************************************************/
-
+	// Open each file
 	file_01 = fopen(file_name,"w+");
 	if( file_01 == NULL)
 		{
 			printf("FILE 01 ERROR \n");
 			exit(1);
 		}
-/*
+
 	file_02 = fopen(delta_file,"w+");
 	if( file_02 == NULL)
 		{
@@ -92,74 +104,54 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 
-	file_03 = fopen(adjusted_file,"w+");
-	if( file_03 == NULL)
-		{
-			printf("FILE 03 ERROR \n");
-			exit(1);
-		}
-
-	file_04 = fopen(distance_file,"w+");
-	if( file_04 == NULL)
-		{
-			printf("FILE 04 ERROR \n");
-			exit(1);
-		}
-*/
-
-/*************************************************************************************************************************************************************************/
+/************************************************************************/
+// Main iteration
+/************************************************************************/
 
 	for( time_iteration = 0 ; time_iteration < NUMBER_OF_ITERATIONS ; time_iteration++ )
 	{
 
-//		fprintf(file_01,"%d \t",time_iteration);	// In the first column, the number of the iteration
-//		fprintf(file_02,"%d \t",time_iteration);
-//		fprintf(file_03,"%d",time_iteration);
-//		fprintf(file_04,"%d \t",time_iteration);
-
+		// First iteration
 		if( time_iteration == 0 )
 		{
-
-			k = VO_ReadFile(conditions_name,original_previous,NODES); //Reading the random initial conditions from file
-			//k = VO_ReadFile(conditions_name,shadow_previous,NODES);
-
-			k = VO_Delta(original_previous, shadow_previous, NODES, DELTA);			//Adding the delta for the shadow orbit
-
-			k = VO_Copy(original_previous,original_current,NODES);						//The current and previous orbits are equal for t=0
+			// Read the iniital conditions from file
+			k = VO_ReadFile(conditions_name,original_previous,NODES);
+			// Add the initial delta to the initial state to create the shadow orbit
+			k = VO_Delta(original_previous, shadow_previous, NODES, DELTA);
+			// The current and previous states are equal for t = 0 and t = -1
+			k = VO_Copy(original_previous,original_current,NODES);
+			// Same case for the shadow orbit
 			k = VO_Copy(shadow_previous,shadow_current,NODES);
 
-			initial_distance = VO_Distance(original_current, shadow_current, NODES);		//Initial distance d0
-
-//			for( node = 0 ; node < NODES ; node++ )
-//			{
-//				fprintf(file_01,"%1.16lf \t",original_current[node]);			//Printing the initial conditions
-//				fprintf(file_02,"%1.16lf \t",shadow_current[node]);			//In the original and the shadow
-//			}
+			// Initial distance d0
+			initial_distance = VO_Distance(original_current, shadow_current, NODES);
 
 		}
+		// For the other iterations we need to calculate the current state
+		// using the previous states
 		else
 		{
+			// We go over the whole network
 			for( node = 0 ; node < NODES ; node++ )
 			{
+				// Equation (1) of the article for the SAD and SPD cases
 				original_current[node] = (1 - epsilon)*UF_logmap(MU,original_previous[node]) +
-											 (epsilon/LF_NormalizationFactor(NODES,alpha))*OP_Sum_Open(node,original_previous,MU,alpha,NODES) +
+				             (epsilon/LF_NormalizationFactor(NODES,alpha))*OP_Sum_Open(node,original_previous,MU,alpha,NODES) +
 										 (gamma/LF_NormalizationFactor(NODES,alpha))*OP_Sub_Open(node,original_previous,MU,alpha,NODES);
 
-				if(time_iteration >= 9945)
-				{
-//					fprintf(file_01,"%1.16lf \t",original_current[node]);
-					shadow_current[node] = (1 - epsilon)*UF_logmap(MU,shadow_previous[node]) +
+				// Dynamical equation for the shadow orbit
+				shadow_current[node] = (1 - epsilon)*UF_logmap(MU,shadow_previous[node]) +
 									   (epsilon/LF_NormalizationFactor(NODES,alpha))*OP_Sum_Open(node,shadow_previous,MU,alpha,NODES) +
 									   (gamma/LF_NormalizationFactor(NODES,alpha))*OP_Sub_Open(node,shadow_previous,MU,alpha,NODES);
 
-//				fprintf(file_02,"%1.16lf \t",shadow_current[node]);
 				}
-
 			}
-
 		}
 
-/*************************************************************************************************************************************************************************/
+/************************************************************************/
+// Once the states are calculated, we calculate average, deviation and distance
+// between the original orbit and the shadow orbit
+/************************************************************************/
 
 		average_original   = OP_Average(original_current,NODES);
 		deviation_original = OP_Deviation(original_current,NODES,average_original);
@@ -169,41 +161,35 @@ int main(int argc, char *argv[])
 
 		current_distance = VO_Distance(original_current, shadow_current, NODES);
 
+/************************************************************************/
+// After the transient, the orbits are saved in the specified file
+/************************************************************************/
 
-//		fprintf(file_04,"%1.16lf \n", current_distance);		//Print d in the distance file - I will have to use python to get the log(di/d0)
-
-		if(time_iteration >= 9945)
+		if(time_iteration >= TRANSIENT)
 		{
 			fprintf(file_01,"%d \t",time_iteration);
 			fprintf(file_01,"%1.16lf \t %1.16lf \n",average_original,deviation_original);
-//			fprintf(file_02,"%1.16lf \t %1.16lf \n",average_shadow,deviation_shadow);
+			fprintf(file_02,"%1.16lf \t %1.16lf \n",average_shadow,deviation_shadow);
 		}
 
+/************************************************************************/
+// Normalize the shadow orbit and update states
+/************************************************************************/
 
 		k = VO_Adjustment(shadow_current, original_current, normalized_shadow, NODES, initial_distance, current_distance);
-
-/*		for( node = 0 ; node < NODES ; node++ )
-			{
-
-				fprintf(file_03,"\t %1.16lf", normalized_shadow[node]);			//In the original and the shadow
-
-			}
-		fprintf(file_03,"\n");
-*/
-
-
 		k = VO_Copy(normalized_shadow, shadow_current, NODES);
 		k = VO_Copy(original_current,original_previous,NODES);
 		k = VO_Copy(shadow_current,shadow_previous,NODES);
 
 	}
 
-	printf("k value %d \n",k);
+/************************************************************************/
+// Control of errors and close the files
+/************************************************************************/
 
+	printf("k value %d \n",k);
 	fclose(file_01);
-//	fclose(file_02);
-//	fclose(file_03);
-//	fclose(file_04);
+	fclose(file_02);
 
 	return 0;
 }
