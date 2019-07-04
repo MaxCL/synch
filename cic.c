@@ -2,6 +2,7 @@
 /************************************************************************/
 // File Name: cic.c
 // Description: Program that generates the initial conditions
+// for each epsilon creates one file. 
 // Author: Max Contreras - mecontrl@uc.cl
 // Date: July 2016 @ Complex Systems PUC Rio - Brazil
 /************************************************************************/
