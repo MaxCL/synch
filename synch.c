@@ -57,8 +57,6 @@ int main(int argc, char *argv[])
 	// Four files to be used to store data from simulation
 	char file_name[40];
 	char delta_file[40];
-	char adjusted_file[40];
-	char distance_file[40];
 
 	// Name for the initial conditions file
 	char conditions_name[40];
@@ -146,7 +144,7 @@ int main(int argc, char *argv[])
 
 				}
 			}
-		}
+
 
 /************************************************************************/
 // Once the states are calculated, we calculate average, deviation and distance
@@ -162,12 +160,18 @@ int main(int argc, char *argv[])
 		current_distance = VO_Distance(original_current, shadow_current, NODES);
 
 /************************************************************************/
-// After the transient, the orbits are saved in the specified file
+// After the transient, both orbits are saved in the specified file
 /************************************************************************/
 
 		if(time_iteration >= TRANSIENT)
 		{
 			fprintf(file_01,"%d \t",time_iteration);
+			fprintf(file_02,"%d \t",time_iteration);
+			for( node = 0 ; node < NODES ; node++ )
+			{
+				fprintf(file_01,"%1.16lf \t",original_current[node]);
+				fprintf(file_02,"%1.16lf \t",shadow_current[node]);
+			}
 			fprintf(file_01,"%1.16lf \t %1.16lf \n",average_original,deviation_original);
 			fprintf(file_02,"%1.16lf \t %1.16lf \n",average_shadow,deviation_shadow);
 		}
@@ -182,6 +186,7 @@ int main(int argc, char *argv[])
 		k = VO_Copy(shadow_current,shadow_previous,NODES);
 
 	}
+
 
 /************************************************************************/
 // Control of errors and close the files
