@@ -1,4 +1,6 @@
-Main part of the code used for some of the simulations of the PRE article.
+Main part of the code used for some of the simulations of the PRE article:
+"Complete synchronization of chaotic maps under advection"
+(https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.052222)
 
 This simulates the dynamics of a 1D lattice with diffusion and advection between totally chaotic elements.
 
