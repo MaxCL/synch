@@ -43,13 +43,16 @@ int main(int argc, char *argv[])
 	double shadow_previous[NODES], shadow_current[NODES], normalized_shadow[NODES];
 
 	// Global metrics over the lattice
-	double average_original, deviation_original;
+	double average_original = 0;
+	double deviation_original = 0;
 
 	// Distances
-	double initial_distance, current_distance;
+	double initial_distance = 0;
+	double current_distance = 0;
 
 	// Global metrics for shadow orbits
-	double average_shadow, deviation_shadow;
+	double average_shadow = 0;
+	double deviation_shadow = 0;
 
 	// Model parameters for the non delayed case
 	double alpha, epsilon, gamma;
