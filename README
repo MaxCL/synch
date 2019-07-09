@@ -11,6 +11,7 @@ Use:
 1. Generate the initial conditions with $./ic.sh
 2. Compile the main file with $./synch.sh 
 3. Run the simulation $./synch alpha epsilon gamma
+4. Be careful: There is an inequality between epsilon and gamma. For details see the article. 
 
 The output files have data for both orbits after 10E4 time steps transient:
 time x1 x2 x3 ... xN average deviation
