@@ -8,6 +8,7 @@
 
 #include "UnimodalFunctions.h"
 
+
 /************************************************************************/
 // Function: Logistic map
 // Input: parameter and current state
