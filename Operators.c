@@ -35,7 +35,7 @@ double OP_Sum(int current_node, double *x, double mu, double alpha, int total_nu
 		}
 		else
 		{
-			numerator      = UF_logmap(mu,x[m]);
+			numerator      = UF_map(mu,x[m]);
 			denominator_01 = LF_CircularDistance(total_number_of_nodes,current_node,m);
 			denominator_02 = pow(denominator_01,alpha);
 
@@ -143,7 +143,7 @@ double OP_Sum_Open(int current_node, double *x, double mu, double alpha, int tot
 			s = (current_node + j) - total_number_of_nodes;
 		}
 
-		numerator      = UF_logmap(mu,x[p]) + UF_logmap(mu,x[s]);
+		numerator      = UF_map(mu,x[p]) + UF_map(mu,x[s]);
 
 		denominator_01 = LF_CircularDistance(total_number_of_nodes,current_node,s);
 		denominator_02 = pow(denominator_01,alpha);
@@ -203,7 +203,7 @@ double OP_Sub_Open(int current_node, double *x, double mu, double alpha, int tot
 			s = (current_node + j) - total_number_of_nodes;
 		}
 
-		numerator      = UF_logmap(mu,x[s]) - UF_logmap(mu,x[p]) ;
+		numerator      = UF_map(mu,x[s]) - UF_map(mu,x[p]) ;
 
 		denominator_01 = LF_CircularDistance(total_number_of_nodes,current_node,s);
 		denominator_02 = pow(denominator_01,alpha);
