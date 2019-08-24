@@ -57,6 +57,9 @@ int main(int argc, char *argv[])
 	// Model parameters for the non delayed case
 	double alpha, epsilon, gamma;
 
+	// Normalization factor eta
+	double eta;
+
 	// Four files to be used to store data from simulation
 	char file_name[40];
 	char delta_file[40];
@@ -105,6 +108,8 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 
+	eta = LF_NormalizationFactor(NODES,alpha);
+
 /************************************************************************/
 // Main iteration
 /************************************************************************/
@@ -137,13 +142,13 @@ int main(int argc, char *argv[])
 			{
 				// Equation (1) of the article for the SAD and SPD cases
 				original_current[node] = (1 - epsilon)*UF_logmap(MU,original_previous[node]) +
-				             (epsilon/LF_NormalizationFactor(NODES,alpha))*OP_Sum_Open(node,original_previous,MU,alpha,NODES) +
-										 (gamma/LF_NormalizationFactor(NODES,alpha))*OP_Sub_Open(node,original_previous,MU,alpha,NODES);
+				             (epsilon/eta)*OP_Sum_Open(node,original_previous,MU,alpha,NODES) +
+										 (gamma/eta)*OP_Sub_Open(node,original_previous,MU,alpha,NODES);
 
 				// Dynamical equation for the shadow orbit
 				shadow_current[node] = (1 - epsilon)*UF_logmap(MU,shadow_previous[node]) +
-									   (epsilon/LF_NormalizationFactor(NODES,alpha))*OP_Sum_Open(node,shadow_previous,MU,alpha,NODES) +
-									   (gamma/LF_NormalizationFactor(NODES,alpha))*OP_Sub_Open(node,shadow_previous,MU,alpha,NODES);
+									   (epsilon/eta)*OP_Sum_Open(node,shadow_previous,MU,alpha,NODES) +
+									   (gamma/eta)*OP_Sub_Open(node,shadow_previous,MU,alpha,NODES);
 
 				}
 			}
