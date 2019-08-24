@@ -141,12 +141,12 @@ int main(int argc, char *argv[])
 			for( node = 0 ; node < NODES ; node++ )
 			{
 				// Equation (1) of the article for the SAD and SPD cases
-				original_current[node] = (1 - epsilon)*UF_logmap(MU,original_previous[node]) +
+				original_current[node] = (1 - epsilon)*UF_map(MU,original_previous[node]) +
 				             (epsilon/eta)*OP_Sum_Open(node,original_previous,MU,alpha,NODES) +
 										 (gamma/eta)*OP_Sub_Open(node,original_previous,MU,alpha,NODES);
 
 				// Dynamical equation for the shadow orbit
-				shadow_current[node] = (1 - epsilon)*UF_logmap(MU,shadow_previous[node]) +
+				shadow_current[node] = (1 - epsilon)*UF_map(MU,shadow_previous[node]) +
 									   (epsilon/eta)*OP_Sum_Open(node,shadow_previous,MU,alpha,NODES) +
 									   (gamma/eta)*OP_Sub_Open(node,shadow_previous,MU,alpha,NODES);
 
