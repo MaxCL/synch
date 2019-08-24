@@ -56,3 +56,26 @@ double UF_qmap(double r, double x)
 
 	return y;
 }
+
+/**********************************************************************/
+// Function: map
+// Input: parameter and current state
+// Return: double
+// Description: Makes easier to change the function that is being used
+//							to calculate the local dynamics.
+/************************************************************************/
+
+double UF_map(double r, double x)
+{
+	double y = 0.00;
+// logistic map
+	y = r * x * (1 - x);
+
+// quadratic map
+//	y = 1 - r * pow(x,2.0);
+
+// sine map
+// 	y = r * sin(M_PI * x);
+
+	return y;
+}

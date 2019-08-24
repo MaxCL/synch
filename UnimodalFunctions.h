@@ -22,3 +22,5 @@ double UF_logmap(double r, double x);
 double UF_sin(double r, double x);
 
 double UF_qmap(double r, double x);
+
+double UF_map(double r, double x);
