@@ -24,3 +24,9 @@
 
 // Factor for random numbers precision
 #define FACTOR 100.0
+
+// Range of alpha parameter *100
+#define MAX_ALPHA 300
+
+// Range of epsilon parameter *100
+#define MAX_EPSILON 100

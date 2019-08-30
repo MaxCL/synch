@@ -2,7 +2,7 @@
 /************************************************************************/
 // File Name: cic.c
 // Description: Program that generates the initial conditions
-// for each epsilon creates one file. 
+// for each epsilon creates one file.
 // Author: Max Contreras - mecontrl@uc.cl
 // Date: July 2016 @ Complex Systems PUC Rio - Brazil
 /************************************************************************/
@@ -23,22 +23,31 @@
 int main(void)
 {
 	int k;
-	int n;
-	double epsilon;
+
+	int epsilon;
+	double d_epsilon;
+
+	int alpha;
+	double d_alpha;
+
 	char conditions_name[50];
 
 //Required initialization for the random seed
-	RandomInitialise(1237,8151);
+	RandomInitialise(237,7152);
 
-	for( n = 0 ; n <= FACTOR ; n++ )
+	for( alpha = 0 ; alpha <= MAX_ALPHA ; alpha++ )
 	{
-		epsilon = (double)n/FACTOR;
+		d_alpha = (double)alpha/100;
 
-		// This name is consistent with the simulation
-		sprintf(conditions_name, "ic_e_%.2lf.csv", epsilon);
+		for( epsilon = 0 ; epsilon <= MAX_EPSILON ; epsilon++ )
+		{
+			d_epsilon = (double)epsilon/100;
 
-//This create the files with random values
-		k = VO_InitializeFile_2(conditions_name,NODES);
+			// This name is consistent with the simulation
+			sprintf(conditions_name, "ic_a_%.2lf_e_%.2lf.csv", d_alpha, d_epsilon);
+			//This create the files with random values
+			k = VO_InitializeFile_2(conditions_name,NODES);
+		}
 
 	}
 

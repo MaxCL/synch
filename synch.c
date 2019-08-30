@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 	sscanf(argv[3],"%lf",&gamma);
 
 	// Epsilon define the initial conditions. For each value there is a different set.
-	sprintf(conditions_name, "ic_e_%.2lf.csv", epsilon);
+	sprintf(conditions_name, "ic_a_%.2lf_e_%.2lf.csv", alpha, epsilon);
 
 	// Data for the original orbit
 	sprintf(file_name, "sim_file_a_%.2lf_e_%.2lf_g_%.2lf.csv", alpha,epsilon,gamma);
@@ -131,8 +131,8 @@ int main(int argc, char *argv[])
 
 			// Initial distance d0
 			initial_distance = VO_Distance(original_current, shadow_current, NODES);
-
 		}
+		
 		// For the other iterations we need to calculate the current state
 		// using the previous states
 		else
