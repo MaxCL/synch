@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	// Normalization factor eta
 	double eta;
 
-	// Four files to be used to store data from simulation
+	// Two files to be used to store data from simulation
 	char file_name[40];
 	char delta_file[40];
 
