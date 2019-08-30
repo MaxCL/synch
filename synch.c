@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 
 	// Data for the original orbit
 	sprintf(file_name, "sim_file_a_%.2lf_e_%.2lf_g_%.2lf.csv", alpha,epsilon,gamma);
-	sprintf(delta_file, "sim_delta_a_%.3lf_e_%.3lf_g_%.3lf.csv", alpha,epsilon,gamma);
+	sprintf(delta_file, "sim_delta_a_%.2lf_e_%.2lf_g_%.2lf.csv", alpha,epsilon,gamma);
 
 	// Open each file
 	file_01 = fopen(file_name,"w+");

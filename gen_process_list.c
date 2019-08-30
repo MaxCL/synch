@@ -11,8 +11,10 @@ int main(int argc, char *argv[])
   int epsilon;
   double d_epsilon;
 
-  int gamma;
+  int gamma = 0;
   double d_gamma;
+
+  int n = 0;
 
   FILE *file_01;
 
@@ -31,16 +33,18 @@ int main(int argc, char *argv[])
 
   sscanf(argv[1],"%d",&number_of_cores);
 
-  for( alpha = 0 ; alpha <= 300 ; alpha++)
+  for( alpha = 0 ; alpha <= 300 ; alpha=alpha+5)
   {
-    for( epsilon = 0 ; epsilon <= 100 ; epsilon++)
+    for( epsilon = 0 ; epsilon <= 100 ; epsilon=epsilon+5)
     {
       d_alpha = (double)alpha/100;
       d_epsilon = (double)epsilon/100;
-      d_gamma = 0.0;
-
+//      for( gamma = 0 ; (gamma <=100) && (gamma <= epsilon) ; gamma = gamma +5 )
+//      {
+      d_gamma = (double)gamma/100;
       fprintf(file_01,"./synch %1.2lf %1.2lf %1.2lf &\n", d_alpha, d_epsilon, d_gamma);
-      if( (epsilon != 0) && (epsilon%number_of_cores == 0) )
+      n++;
+      if( (n%number_of_cores == 0))
       {
         fprintf(file_01,"wait\n");
       }
@@ -48,6 +52,6 @@ int main(int argc, char *argv[])
     }
   }
 
-
+  printf("%d\n",n);
   return 0;
 }
