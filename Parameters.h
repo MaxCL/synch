@@ -10,10 +10,10 @@
 #define NODES 201
 
 // Number of iterations: Transient 10,000
-#define NUMBER_OF_ITERATIONS 10201
+#define NUMBER_OF_ITERATIONS 7101
 
 // Time when transient ends
-#define TRANSIENT 10000
+#define TRANSIENT 7000
 
 // Parameter for the logistic map - chaotic state
 #define MU 4.00
