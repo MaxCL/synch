@@ -5,8 +5,12 @@
 
 <hr>
 
+The code generate, for each step of the simulation, two files:
 
-It generates two files; original orbit and shadow orbit. The later is used to calculate the Lyapunov exponent.
+* Original orbit
+* Shadow orbit
+
+In combination they are used to calculate the Lyapunov exponent.
 
 Use:
 
