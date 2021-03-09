@@ -1,6 +1,10 @@
-Main part of the code used for some of the simulations of the PRE article: "Complete synchronization of chaotic maps under advection" (https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.052222)
+# Complete synchronization of chaotic maps under advection
 
-This simulates the dynamics of a 1D lattice with diffusion and advection between totally chaotic elements.
+> This code simulates the dynamics of a 1D lattice with diffusion and advection between totally chaotic elements.
+> It contains the main part of the code used for simulation in https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.052222
+
+<hr>
+
 
 It generates two files; original orbit and shadow orbit. The later is used to calculate the Lyapunov exponent.
 
