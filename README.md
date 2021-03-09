@@ -15,21 +15,22 @@ In combination they are used to calculate the **Lyapunov exponent**.
 To go over the whole spectrum of parameters, I used:
 
 * AWS EC2 - Mainly on spot
+
 https://aws.amazon.com/ec2/?nc1=h_ls&ec2-whats-new.sort-by=item.additionalFields.postDateTime&ec2-whats-new.sort-order=desc
 
 * StarCluster - To manage the Cluster.
+
 http://star.mit.edu/cluster/
 
 
 To compile and run it, use:
 
-    Generate the initial conditions with _$./ic.sh_
-    Compile the main file with _$./synch.sh_
-    Run the simulation _$./synch alpha epsilon gamma_
+    Generate the initial conditions with $./ic.sh
+    Compile the main file with $./synch.sh
+    Run the simulation $./synch alpha epsilon gamma
     
-    **Be careful: There is an inequality between epsilon and gamma. For details see the article.**
-
 The output files will have data for both orbits after 10E4 time steps transient. The files contain the time stamp, the orbits and two additional columns:
+
 * time x1 x2 x3 ... xN average deviation
 
 Any question or comment, contact me at mecontrl@gmx.de
