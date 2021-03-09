@@ -28,7 +28,7 @@ To compile and run it, use:
     Run the simulation $./synch alpha epsilon gamma
     Be careful: There is an inequality between epsilon and gamma. For details see the article.
 
-The output files will have data for both orbits after 10E4 time steps transient. The files contain the orbits and two additional columns:
+The output files will have data for both orbits after 10E4 time steps transient. The files contain the time stamp, the orbits and two additional columns:
 * time x1 x2 x3 ... xN average deviation
 
 Any question or comment, contact me at mecontrl@gmx.de
